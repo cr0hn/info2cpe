@@ -75,9 +75,13 @@ def _fsplit(text):
 
 
 #----------------------------------------------------------------------
-def search_cpe(search_term, cpe_db="cpe.db", results_number=3):
+def search_cpe(search_term, cpe_db="cpe.db", results_number=1):
     """
     From a text try to get a CPE, using different approximations methods.
+
+    ..note:
+        If results_number is '1', search will be optimized because search ends when the first element,
+        with 100% of match is found.
 
     :param search_term: String to looking for.
     :type search_term: str
@@ -110,6 +114,11 @@ def search_cpe(search_term, cpe_db="cpe.db", results_number=3):
                 tmp_acronyms.append("([%s][a-z0-9]+)[\s]*" % x1)
             acronyms.append(re.compile("".join(tmp_acronyms)))
 
+    # Filters for false positives
+    filters = [
+        re.compile("(^[0-9\.]+$)")  # To detect expression like: 1.0.0
+    ]
+
     # First filter
     partial_results1 = []
     partial_results1_append = partial_results1.append
@@ -134,9 +143,16 @@ def search_cpe(search_term, cpe_db="cpe.db", results_number=3):
 
     # Apply token_set_ratio
     partial_results2 = {}
+
+    # k = CPE (str)
+    # x = CPE description (str)
+    # is_acronym = Bool
     for k, x, is_acronym in partial_results1:
         r = fuzz.partial_token_set_ratio(search_term, x, force_ascii=True)
-        # r = fuzz.WRatio(search_term, x)
+
+        # Is false positive?
+        if any(fil.search(x) is not None for fil in filters):
+            continue
 
         # More weight if there is an acronym
         if is_acronym:
@@ -146,9 +162,12 @@ def search_cpe(search_term, cpe_db="cpe.db", results_number=3):
 
         partial_results2[k] = int(r)
 
+        if results_number == 1 and r == 100:
+            break
+
     result = []
     # Transform and get only the first N elements
-    for x, y in sorted(partial_results2.iteritems(), key=lambda (k, v): v, reverse=True)[:results_number]:  # Order by value
+    for x, y in sorted(partial_results2.iteritems(), key=lambda (k, v): v, reverse=True)[:results_number]:  # By value
         result.append((y, x, list_items[x]))
 
     return result
