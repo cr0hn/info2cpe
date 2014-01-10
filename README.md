@@ -83,6 +83,11 @@ Looking for a CPE from command python code:
 	>>>print result
 	[(100, 'cpe:/a:microsoft:iis:7.5', 'Microsoft Internet Information Services (IIS) 7.5'), (98, 'cpe:/a:microsoft:iis:7.0', 'Microsoft Internet Information Services (IIS) 7.0'), (90, 'cpe:/a:microsoft:iis:6.0', 'Microsoft Internet Information Services (IIS) 6.0')]
 
+Acknowledgements
+================
+
+* Mario Vilas [https://github.com/MarioVilas](https://github.com/MarioVilas) | [@MarioVilas](https://twitter.com/MarioVilas)
+
 Contribute
 ==========
 
