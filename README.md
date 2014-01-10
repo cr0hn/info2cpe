@@ -1,23 +1,23 @@
 What's info2cpe
 ===============
 
-info2cpe is a library that try to convert a simple string (a service banner, for example) into their CPE v2.3 value. The library report the CPE following the standard CPE 2.3.
+info2cpe is a library that try to convert a simple string (a service banner, for example) into a CPE value. The library follows the CPE v2.3 specifications.
 
-For more information, please visit the official website of CPE, maintained by MITRE: [http://cpe.mitre.org/](http://cpe.mitre.org/)
+For more information, please visit the official website for CPE, maintained by MITRE: [http://cpe.mitre.org/](http://cpe.mitre.org/)
 
 ![CPE specification logo](http://cpe.mitre.org/images/cpe_logo.gif)
 
-How it works?
-=============
+How does it work?
+=================
 
-info2cpe use different mathematicians methods to try to match a simple text into the more approximate CPE value.
+info2cpe use different heuristic and mathematical methods to try to match a simple text into the an approximated CPE value.
 
-** A lot of times, the library can't find the exactly correspondence with CPE database. **
+** A lot of times, the library can't find an exact match with the CPE database. **
 
 Usage
 =====
 
-You use the info2cpe as a library and as a command line tool:
+You can use the info2cpe as a library and as a command line tool:
 
 Command line
 ------------
