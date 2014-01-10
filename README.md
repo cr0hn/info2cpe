@@ -77,7 +77,7 @@ Looking for a CPE from command python code:
 
 	>>>from api import search_cpe
 	>>>banner="Microsoft IIS httpd 7.5"
-	>>>result=search_cpe(in_text, cpe_db)
+	>>>result=search_cpe(banner)
 	>>>print result
 	[(100, 'cpe:/a:microsoft:iis:7.5', 'Microsoft Internet Information Services (IIS) 7.5'), (98, 'cpe:/a:microsoft:iis:7.0', 'Microsoft Internet Information Services (IIS) 7.0'), (90, 'cpe:/a:microsoft:iis:6.0', 'Microsoft Internet Information Services (IIS) 6.0')]
 
