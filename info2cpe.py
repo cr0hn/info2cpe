@@ -112,6 +112,10 @@ def main(args):
     #
     # Common vars
     #
+    max_rerults = args.MAX_RESULTS
+    if max_rerults < 0:
+        print "[!] --max-results must be greather than 0."
+        exit(1)
 
     # Input text
     in_text = args.INPUT_TEXT
@@ -138,7 +142,7 @@ def main(args):
     print "[*] Starting analysis..."
 
     start_time = time.time()
-    results = search_cpe(in_text, cpe_db)
+    results = search_cpe(in_text, cpe_db, max_rerults)
     stop_time = time.time()
 
     # Display results
@@ -155,12 +159,13 @@ def main(args):
         print
 
 
-
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='info2cpe try to convert any string into CPE')
     parser.add_argument('-t', '--text', dest="INPUT_TEXT", help="text where looking for the CPE.", default=None)
     parser.add_argument('-c', '--cpe-db', dest="CPE_FILE", type=int, help="cpe database", default=None)
+    parser.add_argument('--max-results', type=int, dest="MAX_RESULTS",
+                        help="max results to looking for. 1 can optimize the search (Default: 3).", default=3)
     parser.add_argument('--update', action="store_true", dest="UPDATE", help="update cpe database", default=False)
 
     args = parser.parse_args()
