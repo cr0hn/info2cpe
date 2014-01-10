@@ -167,7 +167,9 @@ def search_cpe(search_term, cpe_db="cpe.db", results_number=1):
 
     result = []
     # Transform and get only the first N elements
-    for x, y in sorted(partial_results2.iteritems(), key=lambda (k, v): v, reverse=True)[:results_number]:  # By value
+    sorted_results = sorted(partial_results2.iteritems(), key=lambda (k, v): v, reverse=True)
+    results_number = results_number if len(sorted_results) >= results_number else len(sorted_results)
+    for x, y in sorted_results[:results_number]:  # By value
         result.append((y, x, list_items[x]))
 
     return result
